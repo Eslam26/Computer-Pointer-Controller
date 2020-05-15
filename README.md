@@ -118,7 +118,31 @@ python <project_file.py directory> -fd <Face detection model name directory> -fl
 python <project_file.py directory> -fd <Face detection model name directory> -fl <Facial landmark detection model name directory> -hp <head pose estimation model name directory> -ge <Gaze estimation model name directory> -i <input video directory> -d MYRIAD
 ```
 
+## Directory Structure of the project 
+![Directory Structure](https://github.com/Eslam26/Computer-Pointer-Controller/blob/master/bin/DirectoryStructure.PNG)
 
+- src folder contains all the source files:-
+  * face_detection.py 
+     - Contains preprocession of video frame, perform infernce on it and detect the face, postprocess the                          outputs.
+     
+  * facial_landmarks_detection.py
+     - Take the deteted face as input, preprocessed it, perform inference on it and detect the eye landmarks, postprocess the outputs.
+     
+  * head_pose_estimation.py
+     - Take the detected face as input, preprocessed it, perform inference on it and detect the head postion by predicting yaw - roll - pitch angles, postprocess the outputs.
+     
+  * gaze_estimation.py
+     - Take the left eye, rigt eye, head pose angles as inputs, preprocessed it, perform inference and predict the gaze            vector, postprocess the outputs.
+     
+  * input_feeder.py
+     - Contains InputFeeder class which initialize VideoCapture as per the user argument and return the frames one by one.
+     
+  * mouse_controller.py
+     - Contains MouseController class which take x, y coordinates value, speed, precisions and according these values it            moves the mouse pointer by using pyautogui library.
+  * main.py
+     - Users need to run main.py file for running the app.
+ 
+- media folder contains demo video which user can use for testing the app and director structure image.
 
 ## Benchmarks
 * I have Submited three jobs using this script to the DevCloud, using same demo video, but different hardware: 
