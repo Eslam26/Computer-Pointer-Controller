@@ -6,6 +6,7 @@ This has been provided just to give you an idea of how to structure your model c
 import cv2
 import os
 import numpy as np
+import logging as log
 from openvino.inference_engine import IENetwork, IECore
 
 
@@ -52,10 +53,15 @@ class FaceDetectionModelClass:
         unsupported_layers = [R for R in self.model.layers.keys() if R not in supported_layers]
 
         if len(unsupported_layers) != 0:
+            log.error("Unsupported layers found ...")
+            log.error("Adding specified extension")
             self.core.add_extension(self.extension, self.device)
-
+            supported_layers = self.core.query_network(network=self.model, device_name=self.device)
+            unsupported_layers = [R for R in self.model.layers.keys() if R not in supported_layers]
+            if len(unsupported_layers) != 0:
+                log.error("ERROR: There are still unsupported layers after adding extension...")
+                exit(1)
         self.net = self.core.load_network(network=self.model, device_name=self.device, num_requests=1)
-
 
     def predict(self, image):
         '''
@@ -67,11 +73,12 @@ class FaceDetectionModelClass:
         self.faces_coordinates = self.preprocess_output(self.results, image)
 
         if len(self.faces_coordinates) == 0:
-            print("No Face Detected \n")
+            log.error("No Face is detected, Next frame will be processed..")
             return 0, 0
 
         self.first_face_coordinates = self.faces_coordinates[0]
-        cropped_face_image = image[self.first_face_coordinates[1]:self.first_face_coordinates[3],self.first_face_coordinates[0]:self.first_face_coordinates[2]]
+        cropped_face_image = image[self.first_face_coordinates[1]:self.first_face_coordinates[3],
+                             self.first_face_coordinates[0]:self.first_face_coordinates[2]]
 
         return self.first_face_coordinates, cropped_face_image
 

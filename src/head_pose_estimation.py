@@ -4,6 +4,7 @@ This has been provided just to give you an idea of how to structure your model c
 '''
 import cv2
 import numpy as np
+import logging as log
 from openvino.inference_engine import IENetwork, IECore
 
 
@@ -11,6 +12,7 @@ class HeadPoseEstimationModelClass:
     '''
     Class for the Head Pose Estimation Model.
     '''
+
     def __init__(self, model_name, device, extensions=None):
         '''
         this method is to set instance variables.
@@ -41,7 +43,14 @@ class HeadPoseEstimationModelClass:
         unsupported_layers = [R for R in self.model.layers.keys() if R not in supported_layers]
 
         if len(unsupported_layers) != 0:
+            log.error("Unsupported layers found ...")
+            log.error("Adding specified extension")
             self.core.add_extension(self.extension, self.device)
+            supported_layers = self.core.query_network(network=self.model, device_name=self.device)
+            unsupported_layers = [R for R in self.model.layers.keys() if R not in supported_layers]
+            if len(unsupported_layers) != 0:
+                log.error("ERROR: There are still unsupported layers after adding extension...")
+                exit(1)
 
         self.net = self.core.load_network(network=self.model, device_name=self.device, num_requests=1)
 
@@ -78,5 +87,3 @@ class HeadPoseEstimationModelClass:
         output.append(outputs['angle_p_fc'].tolist()[0][0])
         output.append(outputs['angle_r_fc'].tolist()[0][0])
         return output
-
-

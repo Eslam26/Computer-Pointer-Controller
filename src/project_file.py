@@ -59,14 +59,14 @@ def draw_axes(frame, center_of_face, yaw, pitch, roll, scale, focal_length):
     cx = int(center_of_face[0])
     cy = int(center_of_face[1])
     r_x = np.array([[1, 0, 0],
-                   [0, math.cos(pitch), -math.sin(pitch)],
-                   [0, math.sin(pitch), math.cos(pitch)]])
+                    [0, math.cos(pitch), -math.sin(pitch)],
+                    [0, math.sin(pitch), math.cos(pitch)]])
     r_y = np.array([[math.cos(yaw), 0, -math.sin(yaw)],
-                   [0, 1, 0],
-                   [math.sin(yaw), 0, math.cos(yaw)]])
+                    [0, 1, 0],
+                    [math.sin(yaw), 0, math.cos(yaw)]])
     r_z = np.array([[math.cos(roll), -math.sin(roll), 0],
-                   [math.sin(roll), math.cos(roll), 0],
-                   [0, 0, 1]])
+                    [math.sin(roll), math.cos(roll), 0],
+                    [0, 0, 1]])
 
     r = r_z @ r_y @ r_x
     camera_matrix = build_camera_matrix(center_of_face, focal_length)
@@ -158,10 +158,13 @@ def main():
     logger_object.error("Gaze estimation model loaded: time: {:.3f} ms".format((time.time() - third_mark) * 1000))
     load_total_time = time.time() - start_time
     logger_object.error("Total loading time: time: {:.3f} ms".format(load_total_time * 1000))
+    logger_object.error("All models are loaded successfully..")
     input_feeder.load_data()
+    logger_object.error("Input feeder are loaded")
 
     counter = 0
     start_inf_time = time.time()
+    logger_object.error("Start inferencing on input video.. ")
     for flag, frame in input_feeder.next_batch():
         if not flag:
             break
@@ -220,9 +223,12 @@ def main():
 
         cv2.imshow('Visualization', img_hor)
 
+        logger_object.error(
+            "Mouse pointer moves to ({},{}) coordinate".format(mouse_coordinate[0], mouse_coordinate[1]))
         mouse_controller_object.move(mouse_coordinate[0], mouse_coordinate[1])
 
         if pressed_key == 27:
+            logger_object.error("exit key is pressed..")
             break
     inference_time = round(time.time() - start_inf_time, 1)
     fps = int(counter) / inference_time
@@ -230,6 +236,7 @@ def main():
     logger_object.error("counter {} seconds".format(counter))
     logger_object.error("total inference time {} seconds".format(inference_time))
     logger_object.error("fps {} frame/second".format(fps))
+    logger_object.error("Video has ended")
     with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'stats.txt'), 'w') as f:
         f.write(str(inference_time) + '\n')
         f.write(str(fps) + '\n')
