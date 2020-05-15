@@ -4,7 +4,7 @@
 Computer Pointer Controller is an application that uses a gaze detection model to control the mouse pointer using an input video or a live stream from your webcam
 
 ## Demo video
-[![Demo video]()]()
+[![Demo video](https://img.youtube.com/vi/WGzVOM3nMAg/0.jpg)](https://youtu.be/WGzVOM3nMAg)
 
 
 ## Project Set Up and Installation
@@ -149,6 +149,15 @@ python <project_file.py directory> -fd <Face detection model name directory> -fl
   | FPGA             |  130                                         |  3                         |  5  |
 
 ## Results
+
+- First of all, after decreasing prescison, accuracy of the model decreases
+- As we see that GPA excutes more frames than the different hardwares, that goes the excution units and isntruction sets which is compatible and optmized with FP16
+- FPGA takes higher inference time because it works on each gate and programmed it to be compatible for this application 
+
+
+## Edge Cases 
+
+- If there is more than one face detected, it extracts only one face and do inference on it and ignoring other faces.
 
 
 
