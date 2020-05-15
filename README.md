@@ -142,7 +142,7 @@ python <project_file.py directory> -fd <Face detection model name directory> -fl
   * main.py
      - Users need to run main.py file for running the app.
  
-- media folder contains demo video which user can use for testing the app and director structure image.
+- bin folder contains demo video which user can use for testing the app and director structure image.
 
 ## Benchmarks
 * I have Submited three jobs using this script to the DevCloud, using same demo video, but different hardware: 
