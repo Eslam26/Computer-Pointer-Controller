@@ -8,6 +8,7 @@ will move the pointer.
 This class is provided to help get you started; you can choose whether you want to use it or create your own from scratch.
 '''
 import pyautogui
+import logging as log
 
 
 class MouseController:
@@ -19,4 +20,6 @@ class MouseController:
         self.speed = speed_dict[speed]
 
     def move(self, x, y):
+        log.error(
+            "Mouse pointer moves to ({},{}) coordinate".format(x * self.precision, y * self.precision))
         pyautogui.moveRel(x * self.precision, -1 * y * self.precision, duration=self.speed)

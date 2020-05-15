@@ -222,9 +222,6 @@ def main():
             img_hor = cv2.resize(frame, (500, 500))
 
         cv2.imshow('Visualization', img_hor)
-
-        logger_object.error(
-            "Mouse pointer moves to ({},{}) coordinate".format(mouse_coordinate[0], mouse_coordinate[1]))
         mouse_controller_object.move(mouse_coordinate[0], mouse_coordinate[1])
 
         if pressed_key == 27:
@@ -232,7 +229,6 @@ def main():
             break
     inference_time = round(time.time() - start_inf_time, 1)
     fps = int(counter) / inference_time
-    print(fps)
     logger_object.error("counter {} seconds".format(counter))
     logger_object.error("total inference time {} seconds".format(inference_time))
     logger_object.error("fps {} frame/second".format(fps))
