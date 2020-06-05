@@ -1,5 +1,19 @@
 # Computer Pointer Controller
 
+## Content 
+
+- [Overview](#overview)
+- [Demo video](#demo-video)
+- [Project Set up and Installation](#project-setup-and-installation)
+ - [Setup](#setup)
+ - [Downloading Models Inference Files](#downloading-models-inference-files)
+- [Arguments Documentation](#arguments-documentation)
+- [Running the app](#running-the-app)
+- [Directory Structure of the project](#directory-structure-of-the-project)
+- [Benchmarks](#benchmarks)
+- [Results](#results)
+- [Edge Cases](#edge-cases)
+
 ## Overview
 Computer Pointer Controller is an application that uses a gaze detection model to control the mouse pointer using an input video or a live stream from your webcam
 
@@ -7,7 +21,7 @@ Computer Pointer Controller is an application that uses a gaze detection model t
 [![Demo video](https://img.youtube.com/vi/WGzVOM3nMAg/0.jpg)](https://youtu.be/WGzVOM3nMAg)
 
 
-## Project Set Up and Installation
+## Project Setup and Installation
 
 ### Setup 
 
@@ -26,14 +40,14 @@ cd C:\Program Files (x86)\IntelSWTools\openvino\bin\
 setupvars.bat
 ```
 
-## Downloading Models Documentation
+### Downloading Models Inference Files
 
 - [Face Detection Model](https://docs.openvinotoolkit.org/latest/_models_intel_face_detection_adas_binary_0001_description_face_detection_adas_binary_0001.html)
 - [Facial Landmarks Detection Model](https://docs.openvinotoolkit.org/latest/_models_intel_landmarks_regression_retail_0009_description_landmarks_regression_retail_0009.html)
 - [Head Pose Estimation Model](https://docs.openvinotoolkit.org/latest/_models_intel_head_pose_estimation_adas_0001_description_head_pose_estimation_adas_0001.html)
 - [Gaze Estimation Model](https://docs.openvinotoolkit.org/latest/_models_intel_gaze_estimation_adas_0002_description_gaze_estimation_adas_0002.html)
 
-## How to download the models
+#### How to download the models
 
 * Downloading Models 
 for Face Detection Model
